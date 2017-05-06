@@ -28,7 +28,7 @@
 
         private void OpenButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openDialog = new OpenFileDialog();
+            var openDialog = new OpenFileDialog();
             openDialog.Filter = "PDF|*.pdf";
             openDialog.InitialDirectory = this.defaultFolder;
             if (openDialog.ShowDialog() == DialogResult.OK)
