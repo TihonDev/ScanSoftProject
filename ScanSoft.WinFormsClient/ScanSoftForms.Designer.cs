@@ -99,7 +99,6 @@
             this.docTypeComboBox.Name = "docTypeComboBox";
             this.docTypeComboBox.Size = new System.Drawing.Size(156, 21);
             this.docTypeComboBox.TabIndex = 3;
-            this.docTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.DocTypeComboBox_SelectedIndexChanged);
             // 
             // saveButton
             // 

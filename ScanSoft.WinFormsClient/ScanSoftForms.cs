@@ -42,10 +42,6 @@
             }
         }
 
-        private void DocTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void SaveButton_Click(object sender, EventArgs e)
         {
             var docInfo = this.validator.SaveDataValidation(this.twain322.ImageCount, this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text);
