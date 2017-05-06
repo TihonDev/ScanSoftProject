@@ -26,6 +26,14 @@
             this.openExistingFile = false;
         }
 
+        public static string TempFilePath
+        {
+            get
+            {
+                return Path.GetFullPath("..\\..\\TempDocs\\tempPdfDoc.pdf");
+            }
+        }
+
         private void OpenButton_Click(object sender, EventArgs e)
         {
             var openDialog = new OpenFileDialog();
@@ -64,20 +72,20 @@
             this.searchResultsLabel.Text = "Search results:";
             this.docDescriptionTextBox.Text = null;
             this.DisplayDocument("about:blank");
-            File.Delete(StartupClass.tempFilePath);
+            File.Delete(TempFilePath);
             this.dataGridView1.DataSource = null;
         }
 
         private void Twain322_AcquireCompleted(object sender, EventArgs e)
         {
-            File.Delete(StartupClass.tempFilePath);
+            File.Delete(TempFilePath);
             if (this.twain322.ImageCount > 0)
             {
                 this.scannedPagesLabel.Text = string.Format("Scanned pages: {0}", this.twain322.ImageCount);
-                storageMan.SaveToFileSystem(StartupClass.tempFilePath, false);
+                storageMan.SaveToFileSystem(TempFilePath, false);
             }
 
-            this.DisplayDocument(StartupClass.tempFilePath);
+            this.DisplayDocument(TempFilePath);
         }
 
         private void ScannersButton_Click(object sender, EventArgs e)

@@ -6,17 +6,21 @@
 
     public static class StartupClass
     {
-        public static string tempFilePath = Path.GetFullPath("..\\..\\TempDocs\\tempPdfDoc.pdf");
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         public static void Main()
         {
+            if (!Directory.Exists("..\\..\\TempDocs"))
+            {
+                Directory.CreateDirectory("..\\..\\TempDocs");
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ScanSoftForms());
-            File.Delete(tempFilePath);
+            File.Delete(ScanSoftForms.TempFilePath);
         }
     }
 }
