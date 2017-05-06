@@ -6,7 +6,7 @@
 
     public static class StartupClass
     {
-        public static string tempFilePath = Path.GetFullPath("..\\..\\TempDocs\\tempPdfDoc.pdf");
+        public static string tempFilePath = Path.GetFullPath("..\\..\\NewUnsavedDocs\\tempPdfDoc.pdf");
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
