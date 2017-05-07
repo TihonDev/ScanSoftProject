@@ -25,6 +25,7 @@
             this.storageAdmin = new StorageManager();
             this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
             this.openExistingFile = false;
+            this.showDocumentButton.Enabled = false;
 
             if (!Directory.Exists("..\\..\\TempDocs"))
             {
@@ -79,6 +80,7 @@
             this.docDescriptionTextBox.Text = null;
             this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
             this.documentsInfoTable.DataSource = null;
+            this.showDocumentButton.Enabled = false;
         }
 
         private void Twain322_AcquireCompleted(object sender, EventArgs e)
@@ -138,6 +140,19 @@
             }
         }
 
+        private void documentsInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.documentsInfoTable.CurrentCell.ColumnIndex == 3)
+            {
+                this.showDocumentButton.Enabled = true;
+            }
+        }
+
+        private void showDocumentButton_Click(object sender, EventArgs e)
+        {
+            this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
+        }
+
         private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
         }
@@ -162,17 +177,13 @@
         {
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (this.documentsInfoTable.CurrentCell.ColumnIndex == 3)
-            {
-                this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
-            }
-        }
+
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
 
         }
+
+
     }
 }

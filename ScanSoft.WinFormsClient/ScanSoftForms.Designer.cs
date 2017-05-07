@@ -64,6 +64,7 @@
             this.changeDefaultFolderButton = new System.Windows.Forms.Button();
             this.documentsInfoTable = new System.Windows.Forms.DataGridView();
             this.pdfDisplay = new System.Windows.Forms.WebBrowser();
+            this.showDocumentButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.documentsInfoTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -236,7 +237,7 @@
             this.documentsInfoTable.RowHeadersVisible = false;
             this.documentsInfoTable.Size = new System.Drawing.Size(537, 157);
             this.documentsInfoTable.TabIndex = 18;
-            this.documentsInfoTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.documentsInfoTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.documentsInfoTable_CellContentClick);
             // 
             // pdfDisplay
             // 
@@ -247,11 +248,22 @@
             this.pdfDisplay.Size = new System.Drawing.Size(250, 297);
             this.pdfDisplay.TabIndex = 19;
             // 
+            // showDocumentButton
+            // 
+            this.showDocumentButton.Location = new System.Drawing.Point(382, 285);
+            this.showDocumentButton.Name = "showDocumentButton";
+            this.showDocumentButton.Size = new System.Drawing.Size(106, 23);
+            this.showDocumentButton.TabIndex = 20;
+            this.showDocumentButton.Text = "Show Document";
+            this.showDocumentButton.UseVisualStyleBackColor = true;
+            this.showDocumentButton.Click += new System.EventHandler(this.showDocumentButton_Click);
+            // 
             // ScanSoftForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 507);
+            this.Controls.Add(this.showDocumentButton);
             this.Controls.Add(this.pdfDisplay);
             this.Controls.Add(this.documentsInfoTable);
             this.Controls.Add(this.changeDefaultFolderButton);
@@ -280,5 +292,6 @@
         #endregion
         private System.Windows.Forms.DataGridView documentsInfoTable;
         private System.Windows.Forms.WebBrowser pdfDisplay;
+        private System.Windows.Forms.Button showDocumentButton;
     }
 }
