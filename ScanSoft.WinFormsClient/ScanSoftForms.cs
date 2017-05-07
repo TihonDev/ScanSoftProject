@@ -4,8 +4,8 @@
     using System.IO;
     using System.Windows.Forms;
     using iTextSharp.text.pdf;
-    using ScanSoft.Management;
     using Saraff.Twain;
+    using ScanSoft.Management;
 
     public partial class ScanSoftForms : Form
     {
@@ -66,7 +66,7 @@
             }
             else
             {
-                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.addPagesToExistingDocument, new DatabaseManager(), this.pdfReader, this.twain322);
+                this.storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.addPagesToExistingDocument, new DatabaseManager(), this.pdfReader, this.twain322);
             }
         }
 
@@ -89,7 +89,7 @@
             if (this.twain322.ImageCount > 0)
             {
                 this.scannedPagesLabel.Text = string.Format("Scanned pages: {0}", this.twain322.ImageCount);
-                storageAdmin.SaveToFileSystem(this.pdfReader, this.twain322, TempFilePath, false);
+                this.storageAdmin.SaveToFileSystem(this.pdfReader, this.twain322, TempFilePath, false);
             }
 
             this.docViewAdmin.ShowDocument(this.pdfDisplay, TempFilePath);
@@ -140,13 +140,13 @@
             }
         }
 
-        private void documentsInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DocumentsInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             this.showDocumentButton.Enabled =
                 this.documentsInfoTable.CurrentCell.ColumnIndex == 3 ? true : false;
         }
 
-        private void showDocumentButton_Click(object sender, EventArgs e)
+        private void ShowDocumentButton_Click(object sender, EventArgs e)
         {
             this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
         }

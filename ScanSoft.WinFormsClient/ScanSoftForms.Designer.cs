@@ -198,7 +198,7 @@
             this.docDescriptionTextBox.Name = "docDescriptionTextBox";
             this.docDescriptionTextBox.Size = new System.Drawing.Size(261, 89);
             this.docDescriptionTextBox.TabIndex = 14;
-            this.docDescriptionTextBox.Text = "";
+            this.docDescriptionTextBox.Text = string.Empty;
             // 
             // docDescriptionLabel
             // 
@@ -233,7 +233,7 @@
             this.documentsInfoTable.RowHeadersVisible = false;
             this.documentsInfoTable.Size = new System.Drawing.Size(537, 157);
             this.documentsInfoTable.TabIndex = 18;
-            this.documentsInfoTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.documentsInfoTable_CellContentClick);
+            this.documentsInfoTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DocumentsInfoTable_CellContentClick);
             // 
             // pdfDisplay
             // 
@@ -252,7 +252,7 @@
             this.showDocumentButton.TabIndex = 20;
             this.showDocumentButton.Text = "Show Document";
             this.showDocumentButton.UseVisualStyleBackColor = true;
-            this.showDocumentButton.Click += new System.EventHandler(this.showDocumentButton_Click);
+            this.showDocumentButton.Click += new System.EventHandler(this.ShowDocumentButton_Click);
             // 
             // ScanSoftForms
             // 
