@@ -2,11 +2,10 @@
 {
     using System;
     using System.IO;
-    using System.Text;
     using System.Windows.Forms;
     using iTextSharp.text.pdf;
     using ScanSoft.Management;
-    using System.Linq;
+    using Saraff.Twain;
 
     public partial class ScanSoftForms : Form
     {
@@ -23,7 +22,7 @@
             this.Text = "ScanSoft";
             this.docViewAdmin = new DocumentViewManager();
             this.validator = new ValidationManager();
-            this.storageAdmin = new StorageManager(this.pdfReader, this.twain322);
+            this.storageAdmin = new StorageManager();
             this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
             this.openExistingFile = false;
 
@@ -66,7 +65,7 @@
             }
             else
             {
-                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.openExistingFile, new DatabaseManager());
+                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.openExistingFile, new DatabaseManager(), this.pdfReader, this.twain322);
             }
         }
 
@@ -79,7 +78,6 @@
             this.searchResultsLabel.Text = "Search results:";
             this.docDescriptionTextBox.Text = null;
             this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
-            File.Delete(TempFilePath);
             this.documentsInfoTable.DataSource = null;
         }
 
@@ -89,7 +87,7 @@
             if (this.twain322.ImageCount > 0)
             {
                 this.scannedPagesLabel.Text = string.Format("Scanned pages: {0}", this.twain322.ImageCount);
-                storageAdmin.SaveToFileSystem(TempFilePath, false);
+                storageAdmin.SaveToFileSystem(this.pdfReader, this.twain322, TempFilePath, false);
             }
 
             this.docViewAdmin.ShowDocument(this.pdfDisplay, TempFilePath);
@@ -97,8 +95,15 @@
 
         private void ScannersButton_Click(object sender, EventArgs e)
         {
-            this.twain322.CloseDataSource();
-            this.twain322.SelectSource();
+            try
+            {
+                this.twain322.CloseDataSource();
+                this.twain322.SelectSource();
+            }
+            catch (TwainException)
+            {
+                MessageBox.Show("Please select scanner.");
+            }
         }
 
         private void ScanButton_Click(object sender, EventArgs e)
@@ -111,7 +116,7 @@
             var searchInfo = this.validator.SearchDataValidation(this.fileNameTextBox.Text, this.docTypeComboBox.Text);
             if (!searchInfo.isValid)
             {
-                MessageBox.Show("Cannot search without filename! Please, input filename!");
+                MessageBox.Show("Cannot search without filename! Please input filename!");
             }
             else
             {

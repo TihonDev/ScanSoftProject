@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ScanSoft.Management
+﻿namespace ScanSoft.Management
 {
     public class ValidationManager
     {
@@ -35,7 +28,7 @@ namespace ScanSoft.Management
             bool hasEqualFilename = this.dbManager.CheckForEqualFilename(filename);
             if (hasEqualFilename)
             {
-                return (false, "You already have a document with that name, please change the filename.");
+                return (false, "You already have a document with that name. Please change the filename.");
             }
 
             return (true, string.Empty);

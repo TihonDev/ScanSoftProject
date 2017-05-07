@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ScanSoft.Models;
-
-namespace ScanSoft.Management
+﻿namespace ScanSoft.Management
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Forms;
+    using ScanSoft.Models;
+
     public class DocumentViewManager
     {
         public void ShowDocumentInfo(DataGridView dataTable, Label docsCountLabel, ICollection<ScannedDocument> documentsCollection)

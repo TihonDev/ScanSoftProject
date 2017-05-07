@@ -7,22 +7,17 @@
     using ScanSoft.Models;
     using System.Windows.Forms;
     using Saraff.Twain;
-    using System.Text;
 
     public class StorageManager
     {
-        private PdfReader docReader;
-        private Twain32 scannedPages;
         private string defaultFolderFile;
 
-        public StorageManager(PdfReader documentReader, Twain32 scannedPages)
+        public StorageManager()
         {
-            this.docReader = documentReader;
-            this.scannedPages = scannedPages;
             this.defaultFolderFile = "..\\..\\DocsDefaultDirectory.txt";
         }
 
-        public void SaveDocument(string filename, string documentType, string docDescription, string archiveFolder, bool addToExistingFile, DatabaseManager databaseManager)
+        public void SaveDocument(string filename, string documentType, string docDescription, string archiveFolder, bool addToExistingFile, DatabaseManager databaseManager, PdfReader documentReader, Twain32 scannedPages)
         {
             var newFileDirectory = this.CreateDirectory(archiveFolder, documentType);
             var filePath = $"{newFileDirectory}\\{filename}.pdf";
@@ -38,7 +33,7 @@
             saveDialog.FileName = filename;
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
-                this.SaveToFileSystem(filePath, addToExistingFile);
+                this.SaveToFileSystem(documentReader, scannedPages, filePath, addToExistingFile);
             }
         }
 
@@ -61,7 +56,7 @@
             return result;
         }
 
-        public void SaveToFileSystem(string filePath, bool addToExistingFile)
+        public void SaveToFileSystem(PdfReader documentReader, Twain32 scannedPages, string filePath, bool addToExistingFile)
         {
             var doc = new Document(PageSize.A4);
             doc.SetMargins(0, 0, 0, 0);
@@ -69,17 +64,17 @@
             doc.Open();
             if (addToExistingFile)
             {
-                for (int pageNumber = 1; pageNumber <= this.docReader.NumberOfPages; pageNumber++)
+                for (int pageNumber = 1; pageNumber <= documentReader.NumberOfPages; pageNumber++)
                 {
-                    PdfImportedPage page = writer.GetImportedPage(this.docReader, pageNumber);
+                    PdfImportedPage page = writer.GetImportedPage(documentReader, pageNumber);
                     writer.DirectContent.AddTemplate(page, 0, 0);
                     doc.NewPage();
                 }
             }
 
-            for (int i = 0; i < this.scannedPages.ImageCount; i++)
+            for (int i = 0; i < scannedPages.ImageCount; i++)
             {
-                Image pdfImage = Image.GetInstance(this.scannedPages.GetImage(i), System.Drawing.Imaging.ImageFormat.Jpeg);
+                Image pdfImage = Image.GetInstance(scannedPages.GetImage(i), System.Drawing.Imaging.ImageFormat.Jpeg);
                 pdfImage.ScaleAbsolute(600f, 820f);
                 doc.Add(pdfImage);
                 doc.NewPage();
