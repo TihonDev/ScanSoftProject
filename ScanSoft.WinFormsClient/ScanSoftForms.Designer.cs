@@ -84,7 +84,6 @@
             this.fileNameTextBox.Name = "fileNameTextBox";
             this.fileNameTextBox.Size = new System.Drawing.Size(156, 20);
             this.fileNameTextBox.TabIndex = 2;
-            this.fileNameTextBox.TextChanged += new System.EventHandler(this.FileNameTextBox_TextChanged);
             // 
             // docTypeComboBox
             // 
@@ -155,7 +154,6 @@
             this.scannedPagesLabel.Size = new System.Drawing.Size(85, 13);
             this.scannedPagesLabel.TabIndex = 8;
             this.scannedPagesLabel.Text = "Scanned pages:";
-            this.scannedPagesLabel.Click += new System.EventHandler(this.ScannedPagesLabel_Click);
             // 
             // filenameLabel
             // 
@@ -193,7 +191,6 @@
             this.searchResultsLabel.Size = new System.Drawing.Size(77, 13);
             this.searchResultsLabel.TabIndex = 13;
             this.searchResultsLabel.Text = "Search results:";
-            this.searchResultsLabel.Click += new System.EventHandler(this.SearchResultsLabel_Click);
             // 
             // docDescriptionTextBox
             // 
@@ -202,7 +199,6 @@
             this.docDescriptionTextBox.Size = new System.Drawing.Size(261, 89);
             this.docDescriptionTextBox.TabIndex = 14;
             this.docDescriptionTextBox.Text = "";
-            this.docDescriptionTextBox.TextChanged += new System.EventHandler(this.DocDescriptionTextBox_TextChanged);
             // 
             // docDescriptionLabel
             // 

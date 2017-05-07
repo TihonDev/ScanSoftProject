@@ -10,8 +10,8 @@
     public partial class ScanSoftForms : Form
     {
         private bool openExistingFile;
-        private PdfReader pdfReader;
         private string archiveFolder;
+        private PdfReader pdfReader;
         private StorageManager storageAdmin;
         private ValidationManager validator;
         private DocumentViewManager docViewAdmin;
@@ -153,37 +153,8 @@
             this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
         }
 
-        private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
         }
-
-        private void ScannedPagesLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void FileNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void SearchResultsLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void DocDescriptionTextBox_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
-
-
     }
 }
