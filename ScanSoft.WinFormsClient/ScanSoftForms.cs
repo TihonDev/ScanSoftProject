@@ -142,7 +142,7 @@
 
         private void documentsInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.showDocumentButton.Enabled = 
+            this.showDocumentButton.Enabled =
                 this.documentsInfoTable.CurrentCell.ColumnIndex == 3 ? true : false;
         }
 
