@@ -52,7 +52,7 @@
                 int extensionIndex = openedFileName.IndexOf(".pdf");
                 this.fileNameTextBox.Text = openedFileName.Remove(extensionIndex);
                 this.pdfReader = new PdfReader(openDialog.FileName);
-                this.docViewAdmin.ShowDocument(this.webPdfViewer, openDialog.FileName);
+                this.docViewAdmin.ShowDocument(this.pdfDisplay, openDialog.FileName);
                 this.openExistingFile = true;
             }
         }
@@ -78,9 +78,9 @@
             this.scannedPagesLabel.Text = "Scanned pages:";
             this.searchResultsLabel.Text = "Search results:";
             this.docDescriptionTextBox.Text = null;
-            this.docViewAdmin.ShowDocument(this.webPdfViewer, "about:blank");
+            this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
             File.Delete(TempFilePath);
-            this.dataGridView1.DataSource = null;
+            this.documentsInfoTable.DataSource = null;
         }
 
         private void Twain322_AcquireCompleted(object sender, EventArgs e)
@@ -92,7 +92,7 @@
                 storageAdmin.SaveToFileSystem(TempFilePath, false);
             }
 
-            this.docViewAdmin.ShowDocument(this.webPdfViewer, TempFilePath);
+            this.docViewAdmin.ShowDocument(this.pdfDisplay, TempFilePath);
         }
 
         private void ScannersButton_Click(object sender, EventArgs e)
@@ -119,12 +119,7 @@
                 var documentsFound = searchInfo.parameters == 1
                     ? databaseManager.GetDocuments(this.fileNameTextBox.Text)
                     : databaseManager.GetDocuments(this.fileNameTextBox.Text, this.docTypeComboBox.Text);
-
-                var docsToPrint = documentsFound
-                    .Select(d => new { Name = d.Name, Description = d.Description, Created = d.DateOfCreation, Path_To_File = d.PathToFile })
-                    .ToList();
-                this.searchResultsLabel.Text = $"Search results: {docsToPrint.Count} documents";
-                this.dataGridView1.DataSource = docsToPrint;
+                this.docViewAdmin.ShowDocumentInfo(this.documentsInfoTable, this.searchResultsLabel, documentsFound);
             }
         }
 
@@ -164,9 +159,9 @@
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.dataGridView1.CurrentCell.ColumnIndex == 3)
+            if (this.documentsInfoTable.CurrentCell.ColumnIndex == 3)
             {
-                this.docViewAdmin.ShowDocument(this.webPdfViewer, this.dataGridView1.CurrentCell.Value.ToString());
+                this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
             }
         }
 

@@ -62,9 +62,9 @@
             this.docDescriptionTextBox = new System.Windows.Forms.RichTextBox();
             this.docDescriptionLabel = new System.Windows.Forms.Label();
             this.changeDefaultFolderButton = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.webPdfViewer = new System.Windows.Forms.WebBrowser();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.documentsInfoTable = new System.Windows.Forms.DataGridView();
+            this.pdfDisplay = new System.Windows.Forms.WebBrowser();
+            ((System.ComponentModel.ISupportInitialize)(this.documentsInfoTable)).BeginInit();
             this.SuspendLayout();
             // 
             // openButton
@@ -222,38 +222,38 @@
             this.changeDefaultFolderButton.UseVisualStyleBackColor = true;
             this.changeDefaultFolderButton.Click += new System.EventHandler(this.ChangeDefaultFolderButton_Click);
             // 
-            // dataGridView1
+            // documentsInfoTable
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(228, 326);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(537, 157);
-            this.dataGridView1.TabIndex = 18;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.documentsInfoTable.AllowUserToAddRows = false;
+            this.documentsInfoTable.AllowUserToDeleteRows = false;
+            this.documentsInfoTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.documentsInfoTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.documentsInfoTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.documentsInfoTable.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.documentsInfoTable.Location = new System.Drawing.Point(228, 326);
+            this.documentsInfoTable.Name = "documentsInfoTable";
+            this.documentsInfoTable.ReadOnly = true;
+            this.documentsInfoTable.RowHeadersVisible = false;
+            this.documentsInfoTable.Size = new System.Drawing.Size(537, 157);
+            this.documentsInfoTable.TabIndex = 18;
+            this.documentsInfoTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // webPdfViewer
+            // pdfDisplay
             // 
-            this.webPdfViewer.Location = new System.Drawing.Point(515, 12);
-            this.webPdfViewer.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webPdfViewer.Name = "webPdfViewer";
-            this.webPdfViewer.ScrollBarsEnabled = false;
-            this.webPdfViewer.Size = new System.Drawing.Size(250, 308);
-            this.webPdfViewer.TabIndex = 19;
+            this.pdfDisplay.Location = new System.Drawing.Point(515, 12);
+            this.pdfDisplay.MinimumSize = new System.Drawing.Size(20, 20);
+            this.pdfDisplay.Name = "pdfDisplay";
+            this.pdfDisplay.ScrollBarsEnabled = false;
+            this.pdfDisplay.Size = new System.Drawing.Size(250, 297);
+            this.pdfDisplay.TabIndex = 19;
             // 
             // ScanSoftForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 507);
-            this.Controls.Add(this.webPdfViewer);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.pdfDisplay);
+            this.Controls.Add(this.documentsInfoTable);
             this.Controls.Add(this.changeDefaultFolderButton);
             this.Controls.Add(this.docDescriptionLabel);
             this.Controls.Add(this.docDescriptionTextBox);
@@ -272,13 +272,13 @@
             this.Name = "ScanSoftForms";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentsInfoTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.WebBrowser webPdfViewer;
+        private System.Windows.Forms.DataGridView documentsInfoTable;
+        private System.Windows.Forms.WebBrowser pdfDisplay;
     }
 }
