@@ -22,6 +22,9 @@
         private System.Windows.Forms.RichTextBox docDescriptionTextBox;
         private System.Windows.Forms.Label docDescriptionLabel;
         private System.Windows.Forms.Button changeDefaultFolderButton;
+        private System.Windows.Forms.DataGridView documentsInfoTable;
+        private System.Windows.Forms.WebBrowser pdfDisplay;
+        private System.Windows.Forms.Button showDocumentButton;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -286,8 +289,5 @@
 
         }
         #endregion
-        private System.Windows.Forms.DataGridView documentsInfoTable;
-        private System.Windows.Forms.WebBrowser pdfDisplay;
-        private System.Windows.Forms.Button showDocumentButton;
     }
 }
