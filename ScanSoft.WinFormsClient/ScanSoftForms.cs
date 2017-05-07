@@ -12,7 +12,7 @@
     {
         private bool openExistingFile;
         private PdfReader pdfReader;
-        private string defaultFolder;
+        private string archiveFolder;
         private StorageManager storageAdmin;
         private ValidationManager validator;
 
@@ -22,7 +22,7 @@
             this.Text = "ScanSoft";
             this.validator = new ValidationManager();
             this.storageAdmin = new StorageManager(this.pdfReader, this.twain322);
-            this.defaultFolder = this.storageAdmin.SetArchiveDirectory();
+            this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
             this.openExistingFile = false;
 
             if (!Directory.Exists("..\\..\\TempDocs"))
@@ -43,7 +43,7 @@
         {
             var openDialog = new OpenFileDialog();
             openDialog.Filter = "PDF|*.pdf";
-            openDialog.InitialDirectory = this.defaultFolder;
+            openDialog.InitialDirectory = this.archiveFolder;
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 string openedFileName = openDialog.SafeFileName;
@@ -64,7 +64,7 @@
             }
             else
             {
-                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.defaultFolder, this.openExistingFile, new DatabaseManager());
+                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.openExistingFile, new DatabaseManager());
             }
         }
 
@@ -141,7 +141,7 @@
             changeDefaultFolderDialog.Description = "Select default directory.";
             if (changeDefaultFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                this.defaultFolder = this.storageAdmin.ChangeArchiveDirectory(changeDefaultFolderDialog.SelectedPath);
+                this.archiveFolder = this.storageAdmin.ChangeArchiveDirectory(changeDefaultFolderDialog.SelectedPath);
             }
         }
 
