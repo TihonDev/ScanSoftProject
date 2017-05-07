@@ -15,11 +15,13 @@
         private string archiveFolder;
         private StorageManager storageAdmin;
         private ValidationManager validator;
+        private DocumentViewManager docViewAdmin;
 
         public ScanSoftForms()
         {
             this.InitializeComponent();
             this.Text = "ScanSoft";
+            this.docViewAdmin = new DocumentViewManager();
             this.validator = new ValidationManager();
             this.storageAdmin = new StorageManager(this.pdfReader, this.twain322);
             this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
@@ -50,7 +52,7 @@
                 int extensionIndex = openedFileName.IndexOf(".pdf");
                 this.fileNameTextBox.Text = openedFileName.Remove(extensionIndex);
                 this.pdfReader = new PdfReader(openDialog.FileName);
-                this.DisplayDocument(openDialog.FileName);
+                this.docViewAdmin.ShowDocument(this.webPdfViewer, openDialog.FileName);
                 this.openExistingFile = true;
             }
         }
@@ -76,7 +78,7 @@
             this.scannedPagesLabel.Text = "Scanned pages:";
             this.searchResultsLabel.Text = "Search results:";
             this.docDescriptionTextBox.Text = null;
-            this.DisplayDocument("about:blank");
+            this.docViewAdmin.ShowDocument(this.webPdfViewer, "about:blank");
             File.Delete(TempFilePath);
             this.dataGridView1.DataSource = null;
         }
@@ -90,7 +92,7 @@
                 storageAdmin.SaveToFileSystem(TempFilePath, false);
             }
 
-            this.DisplayDocument(TempFilePath);
+            this.docViewAdmin.ShowDocument(this.webPdfViewer, TempFilePath);
         }
 
         private void ScannersButton_Click(object sender, EventArgs e)
@@ -126,15 +128,6 @@
             }
         }
 
-        private void DisplayDocument(string path)
-        {
-            this.webPdfViewer.ScrollBarsEnabled = false;
-            var pathToFile = path == "about:blank"
-                ? path
-                : $"{path}#toolbar=0&navpanes=0";
-            this.webPdfViewer.Navigate(pathToFile);
-        }
-
         private void ChangeDefaultFolderButton_Click(object sender, EventArgs e)
         {
             var changeDefaultFolderDialog = new FolderBrowserDialog();
@@ -143,11 +136,6 @@
             {
                 this.archiveFolder = this.storageAdmin.ChangeArchiveDirectory(changeDefaultFolderDialog.SelectedPath);
             }
-        }
-
-        private void AxAcroPDFReader_Enter(object sender, EventArgs e)
-        {
-            this.DisplayDocument("doNotExists.pdf");
         }
 
         private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -178,7 +166,7 @@
         {
             if (this.dataGridView1.CurrentCell.ColumnIndex == 3)
             {
-                this.DisplayDocument(this.dataGridView1.CurrentCell.Value.ToString());
+                this.docViewAdmin.ShowDocument(this.webPdfViewer, this.dataGridView1.CurrentCell.Value.ToString());
             }
         }
 
