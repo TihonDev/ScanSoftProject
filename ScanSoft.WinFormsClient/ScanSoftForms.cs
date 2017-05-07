@@ -13,17 +13,22 @@
         private bool openExistingFile;
         private PdfReader pdfReader;
         private string defaultFolder;
-        private StorageManager storageMan;
+        private StorageManager storageAdmin;
         private ValidationManager validator;
 
         public ScanSoftForms()
         {
             this.InitializeComponent();
             this.Text = "ScanSoft";
-            this.SetDefaultDirectory(ref this.defaultFolder);
             this.validator = new ValidationManager();
-            this.storageMan = new StorageManager(this.pdfReader, this.twain322);
+            this.storageAdmin = new StorageManager(this.pdfReader, this.twain322);
+            this.defaultFolder = this.storageAdmin.SetArchiveDirectory();
             this.openExistingFile = false;
+
+            if (!Directory.Exists("..\\..\\TempDocs"))
+            {
+                Directory.CreateDirectory("..\\..\\TempDocs");
+            }
         }
 
         public static string TempFilePath
@@ -59,7 +64,7 @@
             }
             else
             {
-                storageMan.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.defaultFolder, this.openExistingFile, new DatabaseManager());
+                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.defaultFolder, this.openExistingFile, new DatabaseManager());
             }
         }
 
@@ -82,7 +87,7 @@
             if (this.twain322.ImageCount > 0)
             {
                 this.scannedPagesLabel.Text = string.Format("Scanned pages: {0}", this.twain322.ImageCount);
-                storageMan.SaveToFileSystem(TempFilePath, false);
+                storageAdmin.SaveToFileSystem(TempFilePath, false);
             }
 
             this.DisplayDocument(TempFilePath);
@@ -117,49 +122,26 @@
                     .Select(d => new { Name = d.Name, Description = d.Description, Created = d.DateOfCreation, Path_To_File = d.PathToFile })
                     .ToList();
                 this.searchResultsLabel.Text = $"Search results: {docsToPrint.Count} documents";
-
                 this.dataGridView1.DataSource = docsToPrint;
-            }
-        }
-
-        private void SetDefaultDirectory(ref string defaultFolder)
-        {
-            if (!File.Exists("..\\..\\DocsDefaultDirectory.txt"))
-            {
-                var defaultFolderWriter = new StreamWriter("..\\..\\DocsDefaultDirectory.txt", false, Encoding.UTF8);
-                using (defaultFolderWriter)
-                {
-                    var docsSystemFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    defaultFolderWriter.WriteLine(docsSystemFolder);
-                }
-            }
-
-            var defaultFolderReader = new StreamReader("..\\..\\DocsDefaultDirectory.txt", Encoding.UTF8);
-            using (defaultFolderReader)
-            {
-                defaultFolder = defaultFolderReader.ReadLine();
             }
         }
 
         private void DisplayDocument(string path)
         {
             this.webPdfViewer.ScrollBarsEnabled = false;
-            var pathToFile = path == "about:blank" ? path : $"{path}#toolbar=0&navpanes=0";
+            var pathToFile = path == "about:blank"
+                ? path
+                : $"{path}#toolbar=0&navpanes=0";
             this.webPdfViewer.Navigate(pathToFile);
         }
 
         private void ChangeDefaultFolderButton_Click(object sender, EventArgs e)
         {
             var changeDefaultFolderDialog = new FolderBrowserDialog();
+            changeDefaultFolderDialog.Description = "Select default directory.";
             if (changeDefaultFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                changeDefaultFolderDialog.Description = "Select default directory.";
-                var changeDefaultFolderWriter = new StreamWriter("..\\..\\DocsDefaultDirectory.txt", false, Encoding.UTF8);
-                using (changeDefaultFolderWriter)
-                {
-                    changeDefaultFolderWriter.WriteLine(changeDefaultFolderDialog.SelectedPath);
-                    this.defaultFolder = changeDefaultFolderDialog.SelectedPath;
-                }
+                this.defaultFolder = this.storageAdmin.ChangeArchiveDirectory(changeDefaultFolderDialog.SelectedPath);
             }
         }
 

@@ -7,16 +7,19 @@
     using ScanSoft.Models;
     using System.Windows.Forms;
     using Saraff.Twain;
+    using System.Text;
 
     public class StorageManager
     {
         private PdfReader docReader;
         private Twain32 scannedPages;
+        private string defaultFolderFile;
 
         public StorageManager(PdfReader documentReader, Twain32 scannedPages)
         {
             this.docReader = documentReader;
             this.scannedPages = scannedPages;
+            this.defaultFolderFile = "..\\..\\DocsDefaultDirectory.txt";
         }
 
         public void SaveDocument(string filename, string documentType, string docDescription, string archiveFolder, bool addToExistingFile, DatabaseManager databaseManager)
@@ -37,6 +40,25 @@
             {
                 this.SaveToFileSystem(filePath, addToExistingFile);
             }
+        }
+
+        public string SetArchiveDirectory()
+        {
+            if (!File.Exists(this.defaultFolderFile))
+            {
+                var docsSystemFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                File.WriteAllText(this.defaultFolderFile, docsSystemFolder);
+            }
+
+            var result = File.ReadAllText(this.defaultFolderFile);
+            return result;
+        }
+
+        public string ChangeArchiveDirectory(string newDirectory)
+        {
+            File.WriteAllText(this.defaultFolderFile, newDirectory);
+            var result = File.ReadAllText(this.defaultFolderFile);
+            return result;
         }
 
         public void SaveToFileSystem(string filePath, bool addToExistingFile)

@@ -12,11 +12,6 @@
         [STAThread]
         public static void Main()
         {
-            if (!Directory.Exists("..\\..\\TempDocs"))
-            {
-                Directory.CreateDirectory("..\\..\\TempDocs");
-            }
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ScanSoftForms());
