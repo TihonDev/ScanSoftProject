@@ -9,7 +9,7 @@
 
     public partial class ScanSoftForms : Form
     {
-        private bool openExistingFile;
+        private bool addPagesToExistingDocument;
         private string archiveFolder;
         private PdfReader pdfReader;
         private StorageManager storageAdmin;
@@ -24,7 +24,7 @@
             this.validator = new ValidationManager();
             this.storageAdmin = new StorageManager();
             this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
-            this.openExistingFile = false;
+            this.addPagesToExistingDocument = false;
             this.showDocumentButton.Enabled = false;
 
             if (!Directory.Exists("..\\..\\TempDocs"))
@@ -53,7 +53,7 @@
                 this.fileNameTextBox.Text = openedFileName.Remove(extensionIndex);
                 this.pdfReader = new PdfReader(openDialog.FileName);
                 this.docViewAdmin.ShowDocument(this.pdfDisplay, openDialog.FileName);
-                this.openExistingFile = true;
+                this.addPagesToExistingDocument = true;
             }
         }
 
@@ -66,13 +66,13 @@
             }
             else
             {
-                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.openExistingFile, new DatabaseManager(), this.pdfReader, this.twain322);
+                storageAdmin.SaveDocument(this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text, this.archiveFolder, this.addPagesToExistingDocument, new DatabaseManager(), this.pdfReader, this.twain322);
             }
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            this.openExistingFile = false;
+            this.addPagesToExistingDocument = false;
             this.docTypeComboBox.Text = null;
             this.fileNameTextBox.Text = null;
             this.scannedPagesLabel.Text = "Scanned pages:";
@@ -142,10 +142,8 @@
 
         private void documentsInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.documentsInfoTable.CurrentCell.ColumnIndex == 3)
-            {
-                this.showDocumentButton.Enabled = true;
-            }
+            this.showDocumentButton.Enabled = 
+                this.documentsInfoTable.CurrentCell.ColumnIndex == 3 ? true : false;
         }
 
         private void showDocumentButton_Click(object sender, EventArgs e)

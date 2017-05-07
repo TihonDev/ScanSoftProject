@@ -213,9 +213,9 @@
             // 
             this.changeDefaultFolderButton.Location = new System.Drawing.Point(12, 427);
             this.changeDefaultFolderButton.Name = "changeDefaultFolderButton";
-            this.changeDefaultFolderButton.Size = new System.Drawing.Size(117, 23);
+            this.changeDefaultFolderButton.Size = new System.Drawing.Size(121, 23);
             this.changeDefaultFolderButton.TabIndex = 16;
-            this.changeDefaultFolderButton.Text = "Change default folder";
+            this.changeDefaultFolderButton.Text = "Change archive folder";
             this.changeDefaultFolderButton.UseVisualStyleBackColor = true;
             this.changeDefaultFolderButton.Click += new System.EventHandler(this.ChangeDefaultFolderButton_Click);
             // 
