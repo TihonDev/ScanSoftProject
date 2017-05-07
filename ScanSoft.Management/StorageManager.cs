@@ -1,12 +1,12 @@
 ﻿namespace ScanSoft.Management
 {
     using System;
+    using System.IO;
+    using System.Windows.Forms;
     using iTextSharp.text;
     using iTextSharp.text.pdf;
-    using System.IO;
-    using ScanSoft.Models;
-    using System.Windows.Forms;
     using Saraff.Twain;
+    using ScanSoft.Models;
 
     public class StorageManager
     {
@@ -23,9 +23,7 @@
             var filePath = $"{newFileDirectory}\\{filename}.pdf";
             var dateOfCreation = DateTime.Now;
             var newDocument = new ScannedDocument(filename, docDescription, documentType, dateOfCreation, filePath);
-
-            var dbManager = databaseManager;
-            dbManager.InsertDocument(newDocument);
+            databaseManager.InsertDocument(newDocument);
 
             var saveDialog = new SaveFileDialog();
             saveDialog.InitialDirectory = newFileDirectory;

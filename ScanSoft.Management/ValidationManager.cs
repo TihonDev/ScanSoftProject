@@ -2,19 +2,11 @@
 {
     public class ValidationManager
     {
-        private DatabaseManager dbManager;
-
-        public ValidationManager()
-        {
-            this.dbManager = new DatabaseManager();
-        }
-
         public (bool isValid, string message) SaveDataValidation(int scannedPages, string filename, string docType, string description)
         {
             if (scannedPages == 0)
             {
                 return (false, "You cannot save a blank document.");
-
             }
 
             bool incorrectFilename = this.StringIsNullOrEmpty(filename);
@@ -25,7 +17,8 @@
                 return (false, "You cannot save the file without name, description or document type!");
             }
 
-            bool hasEqualFilename = this.dbManager.CheckForEqualFilename(filename);
+            var filenameChecker = new DatabaseManager();
+            bool hasEqualFilename = filenameChecker.CheckForEqualFilename(filename);
             if (hasEqualFilename)
             {
                 return (false, "You already have a document with that name. Please change the filename.");
