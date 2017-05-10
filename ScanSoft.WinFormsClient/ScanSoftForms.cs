@@ -149,6 +149,7 @@
 
         private void ShowDocumentButton_Click(object sender, EventArgs e)
         {
+            this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
             this.zoomOutBtn.Visible = true;
             this.zoomInBtn.Visible = true;
             this.zoomLabel.Visible = true;
