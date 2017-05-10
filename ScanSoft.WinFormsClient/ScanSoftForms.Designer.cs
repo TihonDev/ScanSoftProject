@@ -105,7 +105,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(12, 326);
+            this.saveButton.Location = new System.Drawing.Point(12, 243);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 4;
@@ -115,7 +115,7 @@
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(12, 460);
+            this.clearButton.Location = new System.Drawing.Point(12, 538);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
             this.clearButton.TabIndex = 5;
@@ -178,7 +178,7 @@
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(96, 326);
+            this.searchButton.Location = new System.Drawing.Point(93, 243);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(75, 23);
             this.searchButton.TabIndex = 11;
@@ -189,7 +189,7 @@
             // searchResultsLabel
             // 
             this.searchResultsLabel.AutoSize = true;
-            this.searchResultsLabel.Location = new System.Drawing.Point(225, 310);
+            this.searchResultsLabel.Location = new System.Drawing.Point(225, 380);
             this.searchResultsLabel.Name = "searchResultsLabel";
             this.searchResultsLabel.Size = new System.Drawing.Size(77, 13);
             this.searchResultsLabel.TabIndex = 13;
@@ -199,9 +199,9 @@
             // 
             this.docDescriptionTextBox.Location = new System.Drawing.Point(228, 118);
             this.docDescriptionTextBox.Name = "docDescriptionTextBox";
-            this.docDescriptionTextBox.Size = new System.Drawing.Size(261, 89);
+            this.docDescriptionTextBox.Size = new System.Drawing.Size(261, 148);
             this.docDescriptionTextBox.TabIndex = 14;
-            this.docDescriptionTextBox.Text = string.Empty;
+            this.docDescriptionTextBox.Text = "";
             // 
             // docDescriptionLabel
             // 
@@ -214,7 +214,7 @@
             // 
             // changeDefaultFolderButton
             // 
-            this.changeDefaultFolderButton.Location = new System.Drawing.Point(12, 427);
+            this.changeDefaultFolderButton.Location = new System.Drawing.Point(12, 497);
             this.changeDefaultFolderButton.Name = "changeDefaultFolderButton";
             this.changeDefaultFolderButton.Size = new System.Drawing.Size(121, 23);
             this.changeDefaultFolderButton.TabIndex = 16;
@@ -230,7 +230,7 @@
             this.documentsInfoTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.documentsInfoTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.documentsInfoTable.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.documentsInfoTable.Location = new System.Drawing.Point(228, 326);
+            this.documentsInfoTable.Location = new System.Drawing.Point(228, 404);
             this.documentsInfoTable.Name = "documentsInfoTable";
             this.documentsInfoTable.ReadOnly = true;
             this.documentsInfoTable.RowHeadersVisible = false;
@@ -246,10 +246,11 @@
             this.pdfDisplay.ScrollBarsEnabled = false;
             this.pdfDisplay.Size = new System.Drawing.Size(250, 297);
             this.pdfDisplay.TabIndex = 19;
+            this.pdfDisplay.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.pdfDisplay_DocumentCompleted);
             // 
             // showDocumentButton
             // 
-            this.showDocumentButton.Location = new System.Drawing.Point(382, 285);
+            this.showDocumentButton.Location = new System.Drawing.Point(659, 375);
             this.showDocumentButton.Name = "showDocumentButton";
             this.showDocumentButton.Size = new System.Drawing.Size(106, 23);
             this.showDocumentButton.TabIndex = 20;
@@ -261,7 +262,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(777, 507);
+            this.ClientSize = new System.Drawing.Size(777, 573);
             this.Controls.Add(this.showDocumentButton);
             this.Controls.Add(this.pdfDisplay);
             this.Controls.Add(this.documentsInfoTable);
