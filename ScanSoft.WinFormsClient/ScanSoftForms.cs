@@ -1,6 +1,7 @@
 ﻿namespace ScanSoft.WinFormsClient
 {
     using System;
+    using System.Drawing;
     using System.IO;
     using System.Windows.Forms;
     using iTextSharp.text.pdf;
@@ -9,6 +10,7 @@
 
     public partial class ScanSoftForms : Form
     {
+        private bool refreshDocument;
         private bool addPagesToExistingDocument;
         private string archiveFolder;
         private PdfReader pdfReader;
@@ -19,18 +21,7 @@
         public ScanSoftForms()
         {
             this.InitializeComponent();
-            this.Text = "ScanSoft";
-            this.docViewAdmin = new DocumentViewManager();
-            this.validator = new ValidationManager();
-            this.storageAdmin = new StorageManager();
-            this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
-            this.addPagesToExistingDocument = false;
-            this.showDocumentButton.Enabled = false;
 
-            if (!Directory.Exists("..\\..\\TempDocs"))
-            {
-                Directory.CreateDirectory("..\\..\\TempDocs");
-            }
         }
 
         public static string TempFilePath
@@ -52,8 +43,13 @@
                 int extensionIndex = openedFileName.IndexOf(".pdf");
                 this.fileNameTextBox.Text = openedFileName.Remove(extensionIndex);
                 this.pdfReader = new PdfReader(openDialog.FileName);
+                this.refreshDocument = false;
                 this.docViewAdmin.ShowDocument(this.pdfDisplay, openDialog.FileName);
                 this.addPagesToExistingDocument = true;
+                this.zoomLabel.Visible = true;
+                this.zoomLabel.Text = "Zoom - 25%";
+                this.zoomInBtn.Visible = true;
+                this.zoomOutBtn.Visible = true;
             }
         }
 
@@ -79,8 +75,13 @@
             this.searchResultsLabel.Text = "Search results:";
             this.docDescriptionTextBox.Text = null;
             this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
+            this.pdfDisplay.Stop();
             this.documentsInfoTable.DataSource = null;
             this.showDocumentButton.Enabled = false;
+            this.refreshDocument = false;
+            this.zoomLabel.Visible = false;
+            this.zoomInBtn.Visible = false;
+            this.zoomOutBtn.Visible = false;
         }
 
         private void Twain322_AcquireCompleted(object sender, EventArgs e)
@@ -148,15 +149,63 @@
 
         private void ShowDocumentButton_Click(object sender, EventArgs e)
         {
+            this.zoomOutBtn.Visible = true;
+            this.zoomInBtn.Visible = true;
+            this.zoomLabel.Visible = true;
+            this.zoomLabel.Text = "Zoom - 25%";
             this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Text = "ScanSoft";
+            this.docViewAdmin = new DocumentViewManager();
+            this.validator = new ValidationManager();
+            this.storageAdmin = new StorageManager();
+            this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
+            this.addPagesToExistingDocument = false;
+            this.showDocumentButton.Enabled = false;
+            this.refreshDocument = false;
+
+            this.zoomInBtn.Font = new Font("Arial", 16);
+            this.zoomInBtn.TextAlign = ContentAlignment.TopCenter;
+            this.zoomOutBtn.Font = new Font("Arial", 16);
+            this.zoomOutBtn.TextAlign = ContentAlignment.TopCenter;
+            this.zoomLabel.Visible = false;
+            this.zoomInBtn.Visible = false;
+            this.zoomOutBtn.Visible = false;
+
+            if (!Directory.Exists("..\\..\\TempDocs"))
+            {
+                Directory.CreateDirectory("..\\..\\TempDocs");
+            }
         }
 
         private void pdfDisplay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            if (this.refreshDocument)
+            {
+                this.pdfDisplay.Refresh();
+            }
+            else
+            {
+                this.pdfDisplay.Print();
+            }
+        }
+
+        private void zoomOutBtn_Click(object sender, EventArgs e)
+        {
+            this.refreshDocument = true;
+            var zoomPercentage = this.docViewAdmin.ZoomOut(this.pdfDisplay);
+            this.zoomLabel.Text = $"Zoom - {zoomPercentage}%";
+        }
+
+        private void zoomInBtn_Click(object sender, EventArgs e)
+        {
+
+            this.refreshDocument = true;
+            var zoomPercentage = this.docViewAdmin.ZoomIn(this.pdfDisplay);
+            this.zoomLabel.Text = $"Zoom - {zoomPercentage}%";
         }
     }
 }
