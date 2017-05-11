@@ -7,21 +7,20 @@
     using iTextSharp.text.pdf;
     using Saraff.Twain;
     using ScanSoft.Management;
+    using WindowsInput.Native;
 
     public partial class ScanSoftForms : Form
     {
-        private bool refreshDocument;
         private bool addPagesToExistingDocument;
         private string archiveFolder;
         private PdfReader pdfReader;
         private StorageManager storageAdmin;
-        private ValidationManager validator;
+        private ValidationManager validationAdmin;
         private DocumentViewManager docViewAdmin;
 
         public ScanSoftForms()
         {
             this.InitializeComponent();
-
         }
 
         public static string TempFilePath
@@ -43,11 +42,8 @@
                 int extensionIndex = openedFileName.IndexOf(".pdf");
                 this.fileNameTextBox.Text = openedFileName.Remove(extensionIndex);
                 this.pdfReader = new PdfReader(openDialog.FileName);
-                this.refreshDocument = false;
                 this.docViewAdmin.ShowDocument(this.pdfDisplay, openDialog.FileName);
                 this.addPagesToExistingDocument = true;
-                this.zoomLabel.Visible = true;
-                this.zoomLabel.Text = "Zoom - 25%";
                 this.zoomInBtn.Visible = true;
                 this.zoomOutBtn.Visible = true;
             }
@@ -55,7 +51,7 @@
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            var docInfo = this.validator.SaveDataValidation(this.twain322.ImageCount, this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text);
+            var docInfo = this.validationAdmin.SaveDataValidation(this.twain322.ImageCount, this.fileNameTextBox.Text, this.docTypeComboBox.Text, this.docDescriptionTextBox.Text);
             if (!docInfo.isValid)
             {
                 MessageBox.Show(docInfo.message);
@@ -75,11 +71,8 @@
             this.searchResultsLabel.Text = "Search results:";
             this.docDescriptionTextBox.Text = null;
             this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
-            this.pdfDisplay.Stop();
             this.documentsInfoTable.DataSource = null;
             this.showDocumentButton.Enabled = false;
-            this.refreshDocument = false;
-            this.zoomLabel.Visible = false;
             this.zoomInBtn.Visible = false;
             this.zoomOutBtn.Visible = false;
         }
@@ -116,7 +109,7 @@
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            var searchInfo = this.validator.SearchDataValidation(this.fileNameTextBox.Text, this.docTypeComboBox.Text);
+            var searchInfo = this.validationAdmin.SearchDataValidation(this.fileNameTextBox.Text, this.docTypeComboBox.Text);
             if (!searchInfo.isValid)
             {
                 MessageBox.Show("Cannot search without filename! Please input filename!");
@@ -149,30 +142,23 @@
 
         private void ShowDocumentButton_Click(object sender, EventArgs e)
         {
-            this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
+            this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
             this.zoomOutBtn.Visible = true;
             this.zoomInBtn.Visible = true;
-            this.zoomLabel.Visible = true;
-            this.zoomLabel.Text = "Zoom - 25%";
-            this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = "ScanSoft";
             this.docViewAdmin = new DocumentViewManager();
-            this.validator = new ValidationManager();
+            this.validationAdmin = new ValidationManager();
             this.storageAdmin = new StorageManager();
             this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
             this.addPagesToExistingDocument = false;
             this.showDocumentButton.Enabled = false;
-            this.refreshDocument = false;
 
-            this.zoomInBtn.Font = new Font("Arial", 16);
-            this.zoomInBtn.TextAlign = ContentAlignment.TopCenter;
-            this.zoomOutBtn.Font = new Font("Arial", 16);
-            this.zoomOutBtn.TextAlign = ContentAlignment.TopCenter;
-            this.zoomLabel.Visible = false;
+            this.zoomInBtn.TextAlign = ContentAlignment.MiddleCenter;
+            this.zoomOutBtn.TextAlign = ContentAlignment.MiddleCenter;
             this.zoomInBtn.Visible = false;
             this.zoomOutBtn.Visible = false;
 
@@ -184,29 +170,19 @@
 
         private void pdfDisplay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if (this.refreshDocument)
-            {
-                this.pdfDisplay.Refresh();
-            }
-            else
-            {
-                this.pdfDisplay.Print();
-            }
+            this.pdfDisplay.Select();
         }
 
         private void zoomOutBtn_Click(object sender, EventArgs e)
         {
-            this.refreshDocument = true;
-            var zoomPercentage = this.docViewAdmin.ZoomOut(this.pdfDisplay);
-            this.zoomLabel.Text = $"Zoom - {zoomPercentage}%";
+            this.pdfDisplay.Select();
+            this.docViewAdmin.Zoom(VirtualKeyCode.SUBTRACT);
         }
 
         private void zoomInBtn_Click(object sender, EventArgs e)
         {
-
-            this.refreshDocument = true;
-            var zoomPercentage = this.docViewAdmin.ZoomIn(this.pdfDisplay);
-            this.zoomLabel.Text = $"Zoom - {zoomPercentage}%";
+            this.pdfDisplay.Select();
+            this.docViewAdmin.Zoom(VirtualKeyCode.ADD);
         }
     }
 }

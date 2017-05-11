@@ -5,18 +5,17 @@
     using System.Linq;
     using System.Windows.Forms;
     using ScanSoft.Models;
+    using WindowsInput;
+    using WindowsInput.Native;
 
     public class DocumentViewManager
     {
-        private int zoomPercentage;
-        private string zoomFileLocation;
-        private const int DEFAULT_ZOOM_PERCENTAGE = 25;
-        private const int ZOOM_MAX_VALUE = 305;
-        private const int ZOOM_MIN_VALUE = 5;
+        private const double DEFAULT_ZOOM_PERCENTAGE = 25.5;
+        private InputSimulator keyboardSimulator;
 
         public DocumentViewManager()
         {
-            this.zoomPercentage = DEFAULT_ZOOM_PERCENTAGE;
+            this.keyboardSimulator = new InputSimulator();
         }
 
         public void ShowDocumentInfo(DataGridView dataTable, Label docsCountLabel, ICollection<ScannedDocument> documentsCollection)
@@ -33,45 +32,21 @@
             var validator = new ValidationManager();
             if (validator.StringIsNullOrEmpty(pathToFile))
             {
-                throw new ArgumentException($"Invalid path to file location. Parameter name: pathToFile.");
+                throw new ArgumentException("Invalid path to file location. Parameter name: pathToFile.");
             }
 
-            var filePath = string.Empty;
             documentMonitor.ScrollBarsEnabled = false;
-            if (pathToFile == "about:blank")
-            {
-                filePath = pathToFile;
-                this.zoomPercentage = DEFAULT_ZOOM_PERCENTAGE;
-                this.zoomFileLocation = string.Empty;
-            }
-            else
-            {
-                this.zoomFileLocation = pathToFile;
-                filePath = $"{pathToFile}#zoom={this.zoomPercentage}%&navpanes=0&toolbar=0";
-            }
-
+            var filePath = pathToFile == "about:blank"
+                ? pathToFile
+                : $"{pathToFile}#zoom={DEFAULT_ZOOM_PERCENTAGE}%&navpanes=0&toolbar=0";
             documentMonitor.Navigate(filePath);
         }
 
-        public int ZoomIn(WebBrowser docDisplay)
+        public void Zoom(VirtualKeyCode zoomActionKey)
         {
-            if (this.zoomPercentage < ZOOM_MAX_VALUE)
-            {
-                this.zoomPercentage += 10;
-                this.ShowDocument(docDisplay, this.zoomFileLocation);
-            }
-            return this.zoomPercentage;
-        }
-
-        public int ZoomOut(WebBrowser docDisplay)
-        {
-            if (zoomPercentage > ZOOM_MIN_VALUE)
-            {
-                this.zoomPercentage -= 10;
-                this.ShowDocument(docDisplay, this.zoomFileLocation);
-            }
-
-            return this.zoomPercentage;
+            this.keyboardSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+            this.keyboardSimulator.Keyboard.KeyPress(zoomActionKey);
+            this.keyboardSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
         }
     }
 }

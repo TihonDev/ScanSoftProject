@@ -70,7 +70,6 @@
             this.showDocumentButton = new System.Windows.Forms.Button();
             this.zoomInBtn = new System.Windows.Forms.Button();
             this.zoomOutBtn = new System.Windows.Forms.Button();
-            this.zoomLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.documentsInfoTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -263,39 +262,29 @@
             // 
             // zoomInBtn
             // 
-            this.zoomInBtn.Location = new System.Drawing.Point(691, 315);
+            this.zoomInBtn.Location = new System.Drawing.Point(694, 315);
             this.zoomInBtn.Name = "zoomInBtn";
-            this.zoomInBtn.Size = new System.Drawing.Size(32, 32);
+            this.zoomInBtn.Size = new System.Drawing.Size(71, 23);
             this.zoomInBtn.TabIndex = 21;
-            this.zoomInBtn.Text = "+";
+            this.zoomInBtn.Text = "zoom in";
             this.zoomInBtn.UseVisualStyleBackColor = true;
             this.zoomInBtn.Click += new System.EventHandler(this.zoomInBtn_Click);
             // 
             // zoomOutBtn
             // 
-            this.zoomOutBtn.Location = new System.Drawing.Point(565, 315);
+            this.zoomOutBtn.Location = new System.Drawing.Point(515, 315);
             this.zoomOutBtn.Name = "zoomOutBtn";
-            this.zoomOutBtn.Size = new System.Drawing.Size(32, 32);
+            this.zoomOutBtn.Size = new System.Drawing.Size(71, 23);
             this.zoomOutBtn.TabIndex = 22;
-            this.zoomOutBtn.Text = "-";
+            this.zoomOutBtn.Text = "zoom out";
             this.zoomOutBtn.UseVisualStyleBackColor = true;
             this.zoomOutBtn.Click += new System.EventHandler(this.zoomOutBtn_Click);
-            // 
-            // zoomLabel
-            // 
-            this.zoomLabel.AutoSize = true;
-            this.zoomLabel.Location = new System.Drawing.Point(612, 325);
-            this.zoomLabel.Name = "zoomLabel";
-            this.zoomLabel.Size = new System.Drawing.Size(35, 13);
-            this.zoomLabel.TabIndex = 23;
-            this.zoomLabel.Text = "label1";
             // 
             // ScanSoftForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 573);
-            this.Controls.Add(this.zoomLabel);
             this.Controls.Add(this.zoomOutBtn);
             this.Controls.Add(this.zoomInBtn);
             this.Controls.Add(this.showDocumentButton);
@@ -328,6 +317,5 @@
 
         private System.Windows.Forms.Button zoomInBtn;
         private System.Windows.Forms.Button zoomOutBtn;
-        private System.Windows.Forms.Label zoomLabel;
     }
 }
