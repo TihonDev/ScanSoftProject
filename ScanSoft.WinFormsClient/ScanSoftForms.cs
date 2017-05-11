@@ -168,18 +168,18 @@
             }
         }
 
-        private void pdfDisplay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void PdfDisplay_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             this.pdfDisplay.Select();
         }
 
-        private void zoomOutBtn_Click(object sender, EventArgs e)
+        private void ZoomOutBtn_Click(object sender, EventArgs e)
         {
             this.pdfDisplay.Select();
             this.docViewAdmin.Zoom(VirtualKeyCode.SUBTRACT);
         }
 
-        private void zoomInBtn_Click(object sender, EventArgs e)
+        private void ZoomInBtn_Click(object sender, EventArgs e)
         {
             this.pdfDisplay.Select();
             this.docViewAdmin.Zoom(VirtualKeyCode.ADD);

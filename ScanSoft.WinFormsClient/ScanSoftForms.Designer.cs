@@ -25,6 +25,8 @@
         private System.Windows.Forms.DataGridView documentsInfoTable;
         private System.Windows.Forms.WebBrowser pdfDisplay;
         private System.Windows.Forms.Button showDocumentButton;
+        private System.Windows.Forms.Button zoomInBtn;
+        private System.Windows.Forms.Button zoomOutBtn;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -203,7 +205,7 @@
             this.docDescriptionTextBox.Name = "docDescriptionTextBox";
             this.docDescriptionTextBox.Size = new System.Drawing.Size(261, 148);
             this.docDescriptionTextBox.TabIndex = 14;
-            this.docDescriptionTextBox.Text = "";
+            this.docDescriptionTextBox.Text = string.Empty;
             // 
             // docDescriptionLabel
             // 
@@ -248,7 +250,7 @@
             this.pdfDisplay.ScrollBarsEnabled = false;
             this.pdfDisplay.Size = new System.Drawing.Size(250, 297);
             this.pdfDisplay.TabIndex = 19;
-            this.pdfDisplay.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.pdfDisplay_DocumentCompleted);
+            this.pdfDisplay.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.PdfDisplay_DocumentCompleted);
             // 
             // showDocumentButton
             // 
@@ -268,7 +270,7 @@
             this.zoomInBtn.TabIndex = 21;
             this.zoomInBtn.Text = "zoom in";
             this.zoomInBtn.UseVisualStyleBackColor = true;
-            this.zoomInBtn.Click += new System.EventHandler(this.zoomInBtn_Click);
+            this.zoomInBtn.Click += new System.EventHandler(this.ZoomInBtn_Click);
             // 
             // zoomOutBtn
             // 
@@ -278,7 +280,7 @@
             this.zoomOutBtn.TabIndex = 22;
             this.zoomOutBtn.Text = "zoom out";
             this.zoomOutBtn.UseVisualStyleBackColor = true;
-            this.zoomOutBtn.Click += new System.EventHandler(this.zoomOutBtn_Click);
+            this.zoomOutBtn.Click += new System.EventHandler(this.ZoomOutBtn_Click);
             // 
             // ScanSoftForms
             // 
@@ -314,8 +316,5 @@
 
         }
         #endregion
-
-        private System.Windows.Forms.Button zoomInBtn;
-        private System.Windows.Forms.Button zoomOutBtn;
     }
 }
