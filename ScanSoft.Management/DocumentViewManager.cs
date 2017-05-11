@@ -21,7 +21,7 @@
         public void ShowDocumentInfo(DataGridView dataTable, Label docsCountLabel, ICollection<ScannedDocument> documentsCollection)
         {
             var docsInfo = documentsCollection
-                    .Select(d => new { Name = d.Name, Description = d.Description, Created = d.DateOfCreation, Path_To_File = d.PathToFile })
+                    .Select(d => new { Name = d.Name, Type = d.Type, Description = d.Description, Created = d.DateOfCreation, Path_To_File = d.PathToFile })
                     .ToList();
             docsCountLabel.Text = $"Search results: {docsInfo.Count} documents";
             dataTable.DataSource = docsInfo;
