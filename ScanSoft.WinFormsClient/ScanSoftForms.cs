@@ -44,8 +44,7 @@
                 this.pdfReader = new PdfReader(openDialog.FileName);
                 this.docViewAdmin.ShowDocument(this.pdfDisplay, openDialog.FileName);
                 this.addPagesToExistingDocument = true;
-                this.zoomInBtn.Visible = true;
-                this.zoomOutBtn.Visible = true;
+                this.EnableDocumentViewButtons(true, false);
             }
         }
 
@@ -72,9 +71,7 @@
             this.docDescriptionTextBox.Text = null;
             this.docViewAdmin.ShowDocument(this.pdfDisplay, "about:blank");
             this.documentsInfoTable.DataSource = null;
-            this.showDocumentButton.Enabled = false;
-            this.zoomInBtn.Visible = false;
-            this.zoomOutBtn.Visible = false;
+            this.EnableDocumentViewButtons(false, false);
         }
 
         private void Twain322_AcquireCompleted(object sender, EventArgs e)
@@ -136,15 +133,19 @@
 
         private void DocumentsInfoTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.showDocumentButton.Enabled =
+            var enableShowDocumentButton =
                 this.documentsInfoTable.CurrentCell.ColumnIndex == 4 ? true : false;
+
+            var enableZoomButtons =
+                this.addPagesToExistingDocument == true ? true : false;
+
+            this.EnableDocumentViewButtons(enableZoomButtons, enableShowDocumentButton);
         }
 
         private void ShowDocumentButton_Click(object sender, EventArgs e)
         {
             this.docViewAdmin.ShowDocument(this.pdfDisplay, this.documentsInfoTable.CurrentCell.Value.ToString());
-            this.zoomOutBtn.Visible = true;
-            this.zoomInBtn.Visible = true;
+            this.EnableDocumentViewButtons(true, true);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -155,12 +156,10 @@
             this.storageAdmin = new StorageManager();
             this.archiveFolder = this.storageAdmin.SetArchiveDirectory();
             this.addPagesToExistingDocument = false;
-            this.showDocumentButton.Enabled = false;
+            this.EnableDocumentViewButtons(false, false);
 
             this.zoomInBtn.TextAlign = ContentAlignment.MiddleCenter;
             this.zoomOutBtn.TextAlign = ContentAlignment.MiddleCenter;
-            this.zoomInBtn.Visible = false;
-            this.zoomOutBtn.Visible = false;
 
             if (!Directory.Exists("..\\..\\TempDocs"))
             {
@@ -183,6 +182,13 @@
         {
             this.pdfDisplay.Select();
             this.docViewAdmin.Zoom(VirtualKeyCode.ADD);
+        }
+
+        private void EnableDocumentViewButtons(bool zoomEnabled, bool showDocumentEnabled)
+        {
+            this.zoomInBtn.Enabled = zoomEnabled;
+            this.zoomOutBtn.Enabled = zoomEnabled;
+            this.showDocumentButton.Enabled = showDocumentEnabled;
         }
     }
 }

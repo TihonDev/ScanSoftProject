@@ -32,7 +32,7 @@
             var validator = new ValidationManager();
             if (validator.StringIsNullOrEmpty(pathToFile))
             {
-                throw new ArgumentException("Invalid path to file location. Parameter name: pathToFile.");
+                throw new ArgumentException("Invalid path to file location.");
             }
 
             documentMonitor.ScrollBarsEnabled = false;
