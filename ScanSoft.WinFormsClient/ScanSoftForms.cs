@@ -95,7 +95,7 @@
             }
             catch (TwainException)
             {
-                MessageBox.Show("Please select scanner.");
+                MessageBox.Show("Please select scanning device.");
             }
         }
 
