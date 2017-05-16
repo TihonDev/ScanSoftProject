@@ -114,7 +114,7 @@
             else
             {
                 var databaseManager = new DatabaseManager();
-                var documentsFound = searchInfo.parameters == 1
+                var documentsFound = searchInfo.searchParameters == 1
                     ? databaseManager.GetDocuments(this.fileNameTextBox.Text)
                     : databaseManager.GetDocuments(this.fileNameTextBox.Text, this.docTypeComboBox.Text);
                 this.docViewAdmin.ShowDocumentInfo(this.documentsInfoTable, this.searchResultsLabel, documentsFound);

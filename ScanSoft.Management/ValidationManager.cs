@@ -27,7 +27,7 @@
             return (true, string.Empty);
         }
 
-        public (bool isValid, int parameters) SearchDataValidation(string filename, string docType)
+        public (bool isValid, int searchParameters) SearchDataValidation(string filename, string docType)
         {
             var incorrectFilename = this.StringIsNullOrEmpty(filename);
             var incorrectDocType = this.StringIsNullOrEmpty(docType);
