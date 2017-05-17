@@ -6,7 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Button openButton;
+        private System.Windows.Forms.Button openFileBtn;
         private System.Windows.Forms.TextBox fileNameTextBox;
         private System.Windows.Forms.ComboBox docTypeComboBox;
         private System.Windows.Forms.Button saveButton;
@@ -51,7 +51,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.openButton = new System.Windows.Forms.Button();
+            this.openFileBtn = new System.Windows.Forms.Button();
             this.fileNameTextBox = new System.Windows.Forms.TextBox();
             this.docTypeComboBox = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
@@ -72,18 +72,19 @@
             this.showDocumentButton = new System.Windows.Forms.Button();
             this.zoomInBtn = new System.Windows.Forms.Button();
             this.zoomOutBtn = new System.Windows.Forms.Button();
+            this.openFolderBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.documentsInfoTable)).BeginInit();
             this.SuspendLayout();
             // 
-            // openButton
+            // openFileBtn
             // 
-            this.openButton.Location = new System.Drawing.Point(12, 12);
-            this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(75, 23);
-            this.openButton.TabIndex = 0;
-            this.openButton.Text = "Open";
-            this.openButton.UseVisualStyleBackColor = true;
-            this.openButton.Click += new System.EventHandler(this.OpenButton_Click);
+            this.openFileBtn.Location = new System.Drawing.Point(12, 12);
+            this.openFileBtn.Name = "openFileBtn";
+            this.openFileBtn.Size = new System.Drawing.Size(75, 23);
+            this.openFileBtn.TabIndex = 0;
+            this.openFileBtn.Text = "Open";
+            this.openFileBtn.UseVisualStyleBackColor = true;
+            this.openFileBtn.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // fileNameTextBox
             // 
@@ -205,7 +206,7 @@
             this.docDescriptionTextBox.Name = "docDescriptionTextBox";
             this.docDescriptionTextBox.Size = new System.Drawing.Size(261, 148);
             this.docDescriptionTextBox.TabIndex = 14;
-            this.docDescriptionTextBox.Text = string.Empty;
+            this.docDescriptionTextBox.Text = "";
             // 
             // docDescriptionLabel
             // 
@@ -254,9 +255,9 @@
             // 
             // showDocumentButton
             // 
-            this.showDocumentButton.Location = new System.Drawing.Point(659, 375);
+            this.showDocumentButton.Location = new System.Drawing.Point(667, 375);
             this.showDocumentButton.Name = "showDocumentButton";
-            this.showDocumentButton.Size = new System.Drawing.Size(106, 23);
+            this.showDocumentButton.Size = new System.Drawing.Size(98, 23);
             this.showDocumentButton.TabIndex = 20;
             this.showDocumentButton.Text = "Show Document";
             this.showDocumentButton.UseVisualStyleBackColor = true;
@@ -282,11 +283,22 @@
             this.zoomOutBtn.UseVisualStyleBackColor = true;
             this.zoomOutBtn.Click += new System.EventHandler(this.ZoomOutBtn_Click);
             // 
+            // openFolderBtn
+            // 
+            this.openFolderBtn.Location = new System.Drawing.Point(515, 375);
+            this.openFolderBtn.Name = "openFolderBtn";
+            this.openFolderBtn.Size = new System.Drawing.Size(92, 23);
+            this.openFolderBtn.TabIndex = 23;
+            this.openFolderBtn.Text = "Open Folder";
+            this.openFolderBtn.UseVisualStyleBackColor = true;
+            this.openFolderBtn.Click += new System.EventHandler(this.OpenFolderButton_Click);
+            // 
             // ScanSoftForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 573);
+            this.Controls.Add(this.openFolderBtn);
             this.Controls.Add(this.zoomOutBtn);
             this.Controls.Add(this.zoomInBtn);
             this.Controls.Add(this.showDocumentButton);
@@ -306,7 +318,7 @@
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.docTypeComboBox);
             this.Controls.Add(this.fileNameTextBox);
-            this.Controls.Add(this.openButton);
+            this.Controls.Add(this.openFileBtn);
             this.Name = "ScanSoftForms";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -316,5 +328,7 @@
 
         }
         #endregion
+
+        private System.Windows.Forms.Button openFolderBtn;
     }
 }

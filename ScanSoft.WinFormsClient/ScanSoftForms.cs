@@ -1,6 +1,7 @@
 ﻿namespace ScanSoft.WinFormsClient
 {
     using System;
+    using System.Diagnostics;
     using System.Drawing;
     using System.IO;
     using System.Windows.Forms;
@@ -31,11 +32,13 @@
             }
         }
 
-        private void OpenButton_Click(object sender, EventArgs e)
+        private void OpenFileButton_Click(object sender, EventArgs e)
         {
-            var openDialog = new OpenFileDialog();
-            openDialog.Filter = "PDF|*.pdf";
-            openDialog.InitialDirectory = this.archiveFolder;
+            var openDialog = new OpenFileDialog()
+            {
+                Filter = "PDF|*.pdf",
+                InitialDirectory = this.archiveFolder
+            };
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 string openedFileName = openDialog.SafeFileName;
@@ -123,8 +126,10 @@
 
         private void ChangeDefaultFolderButton_Click(object sender, EventArgs e)
         {
-            var changeDefaultFolderDialog = new FolderBrowserDialog();
-            changeDefaultFolderDialog.Description = "Select default directory.";
+            var changeDefaultFolderDialog = new FolderBrowserDialog()
+            {
+                Description = "Select default directory."
+            };
             if (changeDefaultFolderDialog.ShowDialog() == DialogResult.OK)
             {
                 this.archiveFolder = this.storageAdmin.ChangeArchiveDirectory(changeDefaultFolderDialog.SelectedPath);
@@ -184,10 +189,21 @@
             this.docViewAdmin.Zoom(VirtualKeyCode.ADD);
         }
 
+        private void OpenFolderButton_Click(object sender, EventArgs e)
+        {
+            var openExplorerInfo = new ProcessStartInfo()
+            {
+                FileName = "explorer.exe",
+                Arguments = $"/select,{this.documentsInfoTable.CurrentCell.Value.ToString()}"
+            };
+            Process.Start(openExplorerInfo);
+        }
+
         private void EnableDocumentViewButtons(bool zoomEnabled, bool showDocumentEnabled)
         {
             this.zoomInBtn.Enabled = zoomEnabled;
             this.zoomOutBtn.Enabled = zoomEnabled;
+            this.openFolderBtn.Enabled = zoomEnabled;
             this.showDocumentButton.Enabled = showDocumentEnabled;
         }
     }
