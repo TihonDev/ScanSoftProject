@@ -27,6 +27,7 @@
         private System.Windows.Forms.Button showDocumentButton;
         private System.Windows.Forms.Button zoomInBtn;
         private System.Windows.Forms.Button zoomOutBtn;
+        private System.Windows.Forms.Button openFolderBtn;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -320,7 +321,7 @@
             this.Controls.Add(this.fileNameTextBox);
             this.Controls.Add(this.openFileBtn);
             this.Name = "ScanSoftForms";
-            this.Text = "Form1";
+            this.Text = "ScanSoft";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.documentsInfoTable)).EndInit();
             this.ResumeLayout(false);
@@ -328,7 +329,5 @@
 
         }
         #endregion
-
-        private System.Windows.Forms.Button openFolderBtn;
     }
 }

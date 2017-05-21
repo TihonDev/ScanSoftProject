@@ -155,7 +155,6 @@
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = "ScanSoft";
             this.docViewAdmin = new DocumentViewManager();
             this.validationAdmin = new ValidationManager();
             this.storageAdmin = new StorageManager();
